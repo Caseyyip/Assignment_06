@@ -64,7 +64,7 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 			while(tempCheck.next != null){ // As long as the Node doesn't have a null next...
 				tempCheck = tempCheck.next; // make the tempCheck to the next Node. 
 			}								// Keep doing this until one of the Nodes has a null next
-			tempCheck.next = new Node(o, null);	// Add the 'E o' object to the very end and declare it's next, null.
+			//tempCheck.next = new Node(o, null);	// Add the 'E o' object to the very end and declare it's next, null.
 		}
 	}
 
@@ -206,8 +206,6 @@ public class Node {
 	public void setPreviousNode(Node pNode)
 	{
 		previous = pNode;
-		}
-	
 	}
-
+}
 }
