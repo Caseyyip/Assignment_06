@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
  */
 public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 {
-	private Node something;
+	private Node something; // 
 	private Node node; // an Node object
 	private Node head; // The head of the linkedList
 	private Node tail; // The tail of the linkedList
