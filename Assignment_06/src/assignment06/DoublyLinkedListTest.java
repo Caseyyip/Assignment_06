@@ -2,21 +2,30 @@ package assignment06;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import assignment06.DoublyLinkedList.Node;
 
 /**
  * @author Andy Dao
  */
 public class DoublyLinkedListTest {
 	
+	private Node node;
+	private Node head;
+	private Integer integerObject1;
+	private DoublyLinkedList<Object> doublyLinked = new DoublyLinkedList<Object>();
+	
 	/**
 	 * Initiate objects in this setup method / setup test fixtures
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+		integerObject1 = 5;
 	}
 
 	
@@ -25,7 +34,7 @@ public class DoublyLinkedListTest {
 	 */
 	@Test
 	public void addFirst_Test1() {
-		
+		assertFalse(doublyLinked.isEmpty());
 	}
 	
 	
