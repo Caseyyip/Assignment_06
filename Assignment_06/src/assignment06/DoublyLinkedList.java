@@ -52,9 +52,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	{
 		head = null;
 		tail = null;
-		//node = new Node(null, null, null);
-		//node.prev = node;
-		//node.next = node;
 		numberOfElementsInList = 0;
 	}
 
@@ -320,6 +317,10 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 		return remove(size()-1);
 	}
 
+	/**
+	 * Removes the element of the specified index
+	 * @throws IndexOutOfBoundsException - if the specified index is less than 0 or more than the size
+	 */
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index >= size()){
@@ -346,10 +347,9 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 			else{
 				tail = nodeAfter;
 			}
-			
 			result = nodeToRemove.data;
 			
-			if(index == size() -1){
+			if(index == size()-1){
 				tail = nodePrevious;
 			}
 		}
@@ -390,7 +390,7 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 
 	/**
 	 * Checks to see how many elements are in the DoublyLinkedList
-	 * @return
+	 * @return size
 	 */
 	@Override
 	public int size() {
@@ -403,12 +403,17 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	 */
 	@Override
 	public boolean isEmpty() {
-		return head == null;
+		return head == null && size() == 0;
 	}
 
+	/**
+	 * Makes the head null which will let Garbage Collection take over to clear the list.
+	 * Resets the number of elements in the list to 0 since all is removed.
+	 */
 	@Override
 	public void clear() {
 		head = null;
+		numberOfElementsInList = 0;
 	}
 
 	/**
@@ -429,7 +434,7 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	 */
 	public static <E> void printArray(E[] inputArray){
 		for(E elements : inputArray){
-			System.out.printf("%s ", elements);
+			System.out.printf("[%s ", elements + "]");
 		}
 		System.out.println();
 	}
@@ -454,13 +459,14 @@ private class Node {
 		this.prev = prev;
 	}
 	
-	/**
-	 * Gets the data
-	 */
-	public E getData(){
-		return data;
-	}
-	
+//	
+//	/**
+//	 * Gets the data
+//	 */
+//	public E getData(){
+//		return data;
+//	}
+//	
 //	
 //	/**
 //	 * Gets the next Node
@@ -477,12 +483,12 @@ private class Node {
 //		return prev;
 //	}
 //	
-	/**
-	 * Sets the data
-	 */
-	public void setData(E mData){
-		data = mData;
-	}
+//	/**
+//	 * Sets the data
+//	 */
+//	public void setData(E mData){
+//		data = mData;
+//	}
 //	
 //	/**
 //	 * Sets the next Node

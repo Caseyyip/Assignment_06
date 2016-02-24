@@ -2,10 +2,6 @@ package assignment06;
 
 import static org.junit.Assert.*;
 
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Random;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +12,6 @@ import org.junit.Test;
  */
 public class DoublyLinkedListTest {
 	
-	private Random randomInt;
 	private DoublyLinkedList<Object> doublyLinkedList;
 	private DoublyLinkedList<Object> alreadyDefinedMixedDoublyLinkedList; // a mix doubly linked list of integers and strings
 	private Integer integerObject1;
@@ -129,7 +124,7 @@ public class DoublyLinkedListTest {
 		assertEquals(150, integerList.getLast()); // Shall still return 150 because nothing was added in an index
 															 // past index 3, which is where 150 was
 		
-		// Uncomment printArray method below to see representation
+		// Uncomment below to see representation of the list after everything is ran.
 		// integerList.printArray(integerList.toArray());
 	}
 	
@@ -192,7 +187,7 @@ public class DoublyLinkedListTest {
 		integerList.add(2, 644);
 		assertEquals(1555, integerList.getFirst());
 
-		// Uncomment printArray method below to see representation
+		// Uncomment below to see representation of the list after everything is ran.
 		// integerList.printArray(integerList.toArray());
 	}
 	
@@ -220,6 +215,7 @@ public class DoublyLinkedListTest {
 		doublyLinkedList.add(2, "Three Three Three");
 		assertEquals("Three Three Three", doublyLinkedList.getLast());
 	}	
+	
 	@Test
 	public void getLast_OnlyUseAddLast_Integers(){
 		integerList.addLast(1);
@@ -266,7 +262,7 @@ public class DoublyLinkedListTest {
 	
 	
 /**
- * Tests for the removeFirst method
+ * Tests for the removeFirst()
  */
 	@Test
 	public void removeFirst_Integers(){
@@ -276,7 +272,7 @@ public class DoublyLinkedListTest {
 		integerList.removeFirst();
 		assertEquals(15, integerList.getFirst());
 		
-		// Uncomment to see representation
+		// Uncomment below to see representation of the list after everything is ran.
 		// integerList.printArray(integerList.toArray());
 	}
 	
@@ -288,49 +284,144 @@ public class DoublyLinkedListTest {
 		stringList.removeFirst();
 		assertEquals("Two Two", stringList.getFirst());
 		
-		// Uncomment to see representation
+		// Uncomment below to see representation of the list after everything is ran.
 		// integerList.printArray(integerList.toArray());
 	}
+	
+	@Test
+	public void removeFirst_MixedList(){
+		alreadyDefinedMixedDoublyLinkedList.removeFirst(); // Removes integer 5 from the list
+		assertEquals("this", alreadyDefinedMixedDoublyLinkedList.getFirst());
+		
+		// Uncomment below to see representation of the list after everything is ran.
+		// alreadyDefinedMixedDoublyLinkedList.printArray(alreadyDefinedMixedDoublyLinkedList.toArray());
+		}
+	
+	@Test
+	public void removeFirst_Integers_Size(){
+		integerList.add(0, 20); // We will be removing 20
+		integerList.add(1, 15); // 15 will be the new head
+		integerList.add(2, 100);
+		integerList.removeFirst();
+		assertEquals(2, integerList.size());
+		integerList.removeFirst(); // Remove the first again
+		assertEquals(1, integerList.size());
+		integerList.removeFirst(); // Remove the first once more
+		assertEquals(0, integerList.size());
+	}
+	
+	@Test
+	public void removeFirst_MixedList_Size(){
+		alreadyDefinedMixedDoublyLinkedList.removeFirst(); // Removes integer 5 from the list
+		assertEquals(3, alreadyDefinedMixedDoublyLinkedList.size());
+		alreadyDefinedMixedDoublyLinkedList.removeFirst(); // Removes integer "this" from the list
+		assertEquals(2, alreadyDefinedMixedDoublyLinkedList.size());
+		alreadyDefinedMixedDoublyLinkedList.removeFirst(); // Removes integer 100 from the list
+		assertEquals(1, alreadyDefinedMixedDoublyLinkedList.size());
+		alreadyDefinedMixedDoublyLinkedList.removeFirst(); // Removes integer "is a mix" from the list
+		assertEquals(0, alreadyDefinedMixedDoublyLinkedList.size());
+		
+		// Uncomment below to see representation of the list after everything is ran.
+		// alreadyDefinedMixedDoublyLinkedList.printArray(alreadyDefinedMixedDoublyLinkedList.toArray());
+		}
 	
 /**
  * Tests for the removeLast method
  */
 	@Test
-	public void removeLast_Test1(){
+	public void removeLast_Integers(){
+		integerList.add(0, 20); 
+		integerList.add(1, 15); // 15 will be the new head
+		integerList.add(2, 100); // We will be removing 100
+		integerList.removeLast();
+		assertEquals(15, integerList.getLast());
 		
+		// Uncomment below to see representation of the list after everything is ran.
+		// integerList.printArray(integerList.toArray());
 	}
 	
+	@Test
+	public void removeLast_Strings(){
+		stringList.add(0, "One"); // We will be removing "One"
+		stringList.add(1, "Two Two"); // "Two Two" will be the new head
+		stringList.add(2, "Three Three Three"); 
+		stringList.removeLast();
+		assertEquals("Two Two", stringList.getLast());
+		
+		// Uncomment below to see representation of the list after everything is ran.
+		// integerList.printArray(integerList.toArray());
+	}
+	
+	@Test
+	public void removeLast_MixedList(){
+		alreadyDefinedMixedDoublyLinkedList.removeLast(); // Removes integer 5 from the list
+		assertEquals(100, alreadyDefinedMixedDoublyLinkedList.getLast());
+		
+		// Uncomment below to see representation of the list after everything is ran.
+		// alreadyDefinedMixedDoublyLinkedList.printArray(alreadyDefinedMixedDoublyLinkedList.toArray());
+		}
+	
 /**
- * Tests for the remove method
+ * Tests for the remove method at a specific index
  */
 	@Test
-	public void remove_Test1(){
+	public void remove_Integers(){
+		integerList.add(0, 20); 
+		integerList.add(1, 15); 
+		integerList.add(2, 100); 
+		integerList.add(3, 44); 
+		integerList.remove(1); // Remove 15 at index 1
+		integerList.printArray(integerList.toArray());
+
+		integerList.remove(2); // Remove 44 at index 2 (since it was moved down)
+		integerList.printArray(integerList.toArray());
+		assertEquals(20, integerList.getFirst());
+		assertEquals(100, integerList.getLast());
 		
+		// Uncomment below to see representation of the list after everything is ran.
+		// integerList.printArray(integerList.toArray());
+	}
+	
+	@Test
+	public void remove_Strings(){
+		stringList.add(0, "One"); 
+		stringList.add(1, "Two Two"); 
+		stringList.add(2, "Three Three Three"); 
+		stringList.add(3, "Four Four Four Four"); 
+		stringList.remove(1); // "Two Two" will get removed
+		stringList.remove(2); // "Four Four Four Four" will get removed
+		assertEquals("One", stringList.getFirst());
+		assertEquals("Three Three Three", stringList.getLast());
+
+		// Uncomment below to see representation of the list after everything is ran.
+		// integerList.printArray(integerList.toArray());
 	}
 	
 /**
  * Tests for the isEmpty method
  */
 	@Test
-	public void isEmpty_Test1(){
-		
+	public void isEmpty_Test(){
+		for(int i = 0; i < 11; i++){ // Adds integers 0-10
+			doublyLinkedList.add(i);
+		}
+		doublyLinkedList.clear(); // Clears the list
+		assertTrue(doublyLinkedList.isEmpty());
 	}
 	
 /**
  * Tests for the clear method
  */
 	@Test
-	public void clear_Test1(){
-		
+	public void clear_Integers_Size50(){
+		for(int i = 0; i < 50; i++){ // Adds integers 0-49
+			doublyLinkedList.add(i);
+		}
+		assertEquals(50, doublyLinkedList.size()); // Size will be 50 
+		doublyLinkedList.clear(); // Clear list
+		assertTrue(doublyLinkedList.isEmpty()); 
 	}
 	
-/**
- * Tests for the toArray method
- */
-	@Test
-	public void toArray_Test1(){
-		
-	}
 	
 /**
  * Releases external resources that was done in the @before class
