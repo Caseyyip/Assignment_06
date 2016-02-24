@@ -381,6 +381,19 @@ public class DoublyLinkedListTest {
 	}
 	
 	@Test
+	public void remove_Integers_Size(){
+		for(int i = 0; i < 30; i++){ // Size will be 30 after for-loop
+			integerList.add(i);
+		}
+		assertEquals(30, integerList.size()); 
+		
+		for(int j = 0; j < 15; j++){ // Remove 15 elements
+			integerList.remove(j);
+		}
+		assertEquals(15, integerList.size()); // Size should be 15 after for-loop.
+	}
+	
+	@Test
 	public void remove_Strings(){
 		stringList.add(0, "One"); 
 		stringList.add(1, "Two Two"); 
@@ -394,6 +407,27 @@ public class DoublyLinkedListTest {
 		// Uncomment below to see representation of the list after everything is ran.
 		// integerList.printArray(integerList.toArray());
 	}
+	
+	@Test
+	public void remove_Strings_Size(){
+		stringList.add(0, "One"); 
+		stringList.add(1, "Two Two"); 
+		stringList.add(2, "Three Three Three"); 
+		stringList.add(3, "Four Four Four Four"); 
+		stringList.remove(1); // "Two Two" will get removed
+		stringList.remove(2); // "Four Four Four Four" will get removed
+		stringList.remove(0); // "One" will get removed.
+		
+		assertEquals(1, stringList.size()); // Size should be 1 now.
+		stringList.remove(0);
+		assertEquals(0, stringList.size()); // Size should be 0 now.
+	}
+	
+	
+/**
+ * Tests for indexOf() method
+ */
+	
 	
 /**
  * Tests for the isEmpty method

@@ -134,7 +134,7 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	@Override
 	public void addFirst(E element) 
 	{
-			add(0, element); // Add element to index 0
+		add(0, element); // Add element to index 0
 	}
 	
 	/**
@@ -145,26 +145,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	public void addLast(E element)
 	{
 		add(element); // Uses add() because add() puts at the end anyways
-	}
-	/**
-	 * Appends the specified element to the end of this list.
-	 * @param element - the object to add to the list
-	 * @return always succeeds, so always returns true
-	 */
-	public boolean add(E element) {
-		Node newNode = new Node(element);
-		
-		if (isEmpty()) {
-			head = newNode;
-		}
-		else {
-			newNode.prev = tail;
-			tail.next = newNode;
-		}
-		
-		tail = newNode;
-		numberOfElementsInList++;
-		return true;
 	}
 
 	/**
@@ -207,6 +187,27 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 			previousNode.next = newNode;
 		}
 		numberOfElementsInList++;
+	}
+	
+	/**
+	 * Appends the specified element to the end of this list.
+	 * @param element - the object to add to the list
+	 * @return always succeeds, so always returns true
+	 */
+	public boolean add(E element) {
+		Node newNode = new Node(element);
+		
+		if (isEmpty()) {
+			head = newNode;
+		}
+		else {
+			newNode.prev = tail;
+			tail.next = newNode;
+		}
+		
+		tail = newNode;
+		numberOfElementsInList++;
+		return true;
 	}
 	
 	/**
@@ -316,35 +317,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 		
 		E element = getNodeAtIndex(index).data;
 		remove(element);
-		
-//		E result = null;
-//		
-//		if(index == 0){
-//			result = head.data;
-//			head = head.next;
-//			if(head == null){
-//				tail = null;
-//			}
-//		}
-//		else{
-//			Node nodePrevious = getNodeAtIndex(index-1);
-//			Node nodeToRemove = nodePrevious.next;
-//			Node nodeAfter = nodeToRemove;
-//			
-//			nodePrevious.next = nodeAfter;
-//			if(nodeAfter != null){
-//				nodeAfter.prev = nodePrevious;
-//			}
-//			else{
-//				tail = nodeAfter;
-//			}
-//			result = nodeToRemove.data;
-//			
-//			if(index == size()-1){
-//				tail = nodePrevious;
-//			}
-//		}
-//		numberOfElementsInList--;
 		return element;
 	}
 	
@@ -352,7 +324,7 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	 * Helper method to remove the element at the specified index
 	 * @param data - The element to remove
 	 */
-	public void remove(E data){
+	private void remove(E data){
 		if(isEmpty()) {
 			throw new NullPointerException();
 		}		
@@ -409,20 +381,26 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 
 	/**
 	 * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element. 
-	 * More formally, returns the highest index i such that (o==null ? get(i)==null : o.equals(get(i))), or -1 if there is no such index.
+	 * More formally, returns the highest index i such that (element==null ? get(i)==null : element.equals(get(i))), or -1 if there is no such index.
 	 * 
 	 * @param element - element to search for
 	 * @return The index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element
 	 */
 	@Override
 	public int lastIndexOf(E element) {
-		// DoublyLinkedListIterator lastIndexIterator = new DoublyLinkedListIterator();
-		int index = size();
 		Node current = tail;
-
+		int index = size() - 1;
+		
+		if(element == null){
+			
+		}
+		
 		while(current != null){
 			current = current.prev;
-			//System.out.println(current.);
+			if(current.data.equals(element)){
+				return index;
+			}
+			index--;
 		}
 		return -1;
 	}
