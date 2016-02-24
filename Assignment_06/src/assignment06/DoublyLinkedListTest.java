@@ -1,14 +1,13 @@
 package assignment06;
 
 import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
 /**
- * @author Andy Dao
+ * @author Andy Dao and Ho Lam Yip
  */
 public class DoublyLinkedListTest {
 	
@@ -370,11 +369,10 @@ public class DoublyLinkedListTest {
 		integerList.add(1, 15); 
 		integerList.add(2, 100); 
 		integerList.add(3, 44); 
+		
 		integerList.remove(1); // Remove 15 at index 1
-		integerList.printArray(integerList.toArray());
-
 		integerList.remove(2); // Remove 44 at index 2 (since it was moved down)
-		integerList.printArray(integerList.toArray());
+		
 		assertEquals(20, integerList.getFirst());
 		assertEquals(100, integerList.getLast());
 		
