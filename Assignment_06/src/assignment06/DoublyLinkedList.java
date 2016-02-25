@@ -8,43 +8,15 @@ import java.util.NoSuchElementException;
  * We have been asked to construct a list representation that can accommodate any type of item. 
  * We decide to implement a doubly linked list and compare its performance to Java's ArrayList to determine which is more efficient.
  * 
- * [Requirements]
- * Please look at your feedback on Assignment 03 to make sure you understand the functionality of Iterators.  
- * As always, do not modify the file name, package name, or signatures of any methods. 
- * Implement every method in both interfaces according to the functionality described in the comments, and Java documentation. 
- * Your list should use 0-based indexing just like an array... 
- * 	- (the first item is considered at index 0). 
- * 
  * Also, notice the required Big-O behavior for each method when implemented for a doubly-linked list. Adhere to the following rules:
- * 		Add your DoublyLinkedList class to the assignment06 package. DO NOT MAKE A NEW PROJECT. Learn the difference between packages and projects. 
- * 		Include a zero-parameter constructor, public DoublyLinkedList(). This is known as the 'default constructor'.
- * 		Do not use Java's LinkedList class.
- * 
- * Create and submit tests for the DoublyLinkedList class. Consider carefully how to test for a broad range of inputs.
- * 
  * @author Andy Dao and Ho Lam Yip
  */
 public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 {
-	private int numberOfElementsInList; // Number of elements in List
+	int numberOfElementsInList; // Number of elements in List
 	private Node node; // an Node object
 	private Node head; // The head of the linkedList
 	private Node tail; // The tail of the linkedList
-	
-// === This is how you'll create an iterator object with a list === 	
-// Iterator<Object> doublyLinkedIterator = list.iterator();
-
-// === Can uncomment main to do visual representation testing ===
-//	public static void main(String[] args){
-//		DoublyLinkedList<Object> list = new DoublyLinkedList<>();
-//		list.addFirst(2);
-//		list.addFirst(10); 
-////		printArray(list.toArray());
-//		
-//		list.add(4);
-//		list.add(15);
-//		printArray(list.toArray());
-//	}
 	
 	/**
 	 * Default Constructor for DoublyLinkedList
@@ -123,7 +95,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 		}
 	}
 
-	
 	
 	//==============================================================================================================================//
 	
@@ -233,13 +204,14 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 		if(isEmpty()){
 			throw new NoSuchElementException();
 		}
-		return getNodeAtIndex(size()+1).data;
+		return getNodeAtIndex(size()).data;
 	}
 
 	/**
-	 * Returns the element at the specified position in this list.
+	 * Returns the element at the specified position in this list as long as the index given is in the range of index < 0 || index > size(). If it is
+	 * not in the range, will throw IndexOutOfBoundsException()
 	 * @param index - Index of the element to return
-
+	 * @throws IndexOutOfBoundsException If index is not in the range of 0 to size of list.
 	 */
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
@@ -254,24 +226,26 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	/**
 	 * Private helper method to get the Node of the specified index.
 	 * @return The Node at the specified index.
-	 * @assert index >= 0 && index < size() - Will only run if the given index is greater than 0 and less than the size(). This is the range.
+	 * @throws IndexOutOfBoundsException If index is not in the range of 0 to size of list.
 	 */
 	private Node getNodeAtIndex(int index){
-		assert index >= 0 && index < size();
-		
-		int mid = size() / 2;
+		if(index < 0 || index > size()){
+			throw new IndexOutOfBoundsException();
+		}
+		int mid = size() / 2; 
 		Node node = null;
-
+		// If the index is less than mid, start from the beginning and work on the way up to the index 
 		if(index <= mid){
 			node = head;
 			for(int i = 0; i < index; i++){
-				node = node.next; 
+				node = node.next; // Grab the Node and return it at end
 			}
 		}
 		else{
+			// If the index is greater than mid, start from the very end at the last node index, and work on way down
 			node = tail;
 			for(int i = size()-1; i > index; i--){
-				node = node.prev;
+				node = node.prev; // Grab the Node and return it at the end
 			}
 		}
 		return node;
@@ -325,9 +299,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	 * @param data - The element to remove
 	 */
 	private void remove(E data){
-		if(isEmpty()) {
-			throw new NullPointerException();
-		}		
 		if (size() == 1 && head.data.equals(data)) {
 			head = tail = null; // removing the only item from list 
 			numberOfElementsInList--;
@@ -367,13 +338,15 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	 */
 	@Override
 	public int indexOf(E element) {
-		DoublyLinkedListIterator indexOfIterator = new DoublyLinkedListIterator();
+		Node current = head;
 		int index = 0;
 		
-		while(indexOfIterator.hasNext()){
-			if(indexOfIterator.next().equals(element)){
+		// Make sure that the head is not null
+		while(current != null){
+			if(current.data.equals(element)){
 				return index;
 			}
+			current = current.next;
 			index++;
 		}
 		return -1;
@@ -389,17 +362,15 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 	@Override
 	public int lastIndexOf(E element) {
 		Node current = tail;
-		int index = size() - 1;
+		int index = size()-1; // Start index count at the end of list and increment down until no element found
+							  // or element has been found.
 		
-		if(element == null){
-			
-		}
-		
+		// Make sure that the tail is not null
 		while(current != null){
-			current = current.prev;
 			if(current.data.equals(element)){
 				return index;
 			}
+			current = current.prev;
 			index--;
 		}
 		return -1;

@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  * @author Andy Dao and Ho Lam Yip
  */
@@ -18,15 +17,12 @@ public class DoublyLinkedListTest {
 	private Integer integerObject3;
 	private DoublyLinkedList<Object> integerList;
 	private DoublyLinkedList<Object> stringList;
-
 	
 	/**
 	 * Initiate objects in this setup method / setup test fixtures
 	 */
 	@Before
 	public void setUp() throws Exception {
-// Initiate iterator
-		
 // Initiate doublyLinkedList
 		doublyLinkedList =  new DoublyLinkedList<Object>();
 		
@@ -427,6 +423,95 @@ public class DoublyLinkedListTest {
 /**
  * Tests for indexOf() method
  */
+	@Test
+	public void indexOf_Integers(){
+		integerList.add(15); // First occurrence for 15
+		integerList.add(30);
+		integerList.add(13); // First occurrence for 13
+		integerList.add(15);
+		integerList.add(900);
+		integerList.add(13);
+		assertEquals(2, integerList.indexOf(13));
+		assertEquals(0, integerList.indexOf(15));
+	}
+	
+	@Test
+	public void indexOf_Strings(){
+		stringList.add(0, "One");
+		stringList.add(1, "Two Two"); // First occurrence of "Two Two"
+		stringList.add(2, "Three Three Three"); // First occurrence of "Three Three Three"
+		stringList.add(3, "Four Four Four Four"); 
+		stringList.add(4, "Two Two");
+		stringList.add(5, "Five Five Five Five Five"); 
+		stringList.add(6, "Two Two"); 
+		stringList.add(5, "Three Three Three"); 
+		stringList.add(5, "One"); 
+		assertEquals(2, stringList.indexOf("Three Three Three"));
+		assertEquals(1, stringList.indexOf("Two Two"));
+	}
+	
+	@Test
+	public void indexOf_Mix(){
+		doublyLinkedList.add(3);
+		doublyLinkedList.add(10);
+		doublyLinkedList.add("hello");
+		doublyLinkedList.add(900); // First occurrence of 900 - index 3
+		doublyLinkedList.add("world"); // First occurrence of "world" - index 4
+		doublyLinkedList.add(10);
+		doublyLinkedList.add("world");
+		doublyLinkedList.add("world"); 
+		doublyLinkedList.add(900); 
+		doublyLinkedList.add(100);
+		assertEquals(4, doublyLinkedList.indexOf("world"));
+		assertEquals(3, doublyLinkedList.indexOf(900));
+	}
+	
+	
+/**
+ * Tests for indexOf() method
+ */
+	@Test
+	public void lastIndexOf_Integers(){
+		integerList.add(15); 
+		integerList.add(30);
+		integerList.add(13); 
+		integerList.add(15); // last occurrence for 15 - index 3
+		integerList.add(900);
+		integerList.add(13); // last occurrence for 13 - index 5
+		assertEquals(5, integerList.lastIndexOf(13));
+		assertEquals(3, integerList.lastIndexOf(15));
+	}
+	
+	@Test
+	public void lastIndexOf_Strings(){
+		stringList.add(0, "One");
+		stringList.add(1, "Two Two"); 
+		stringList.add(2, "Three Three Three"); 
+		stringList.add(3, "Four Four Four Four"); 
+		stringList.add(4, "Two Two");
+		stringList.add(5, "Five Five Five Five Five"); 
+		stringList.add(6, "Two Two"); // Last occurrence of "Two Two" - index 6
+		stringList.add(7, "Three Three Three"); // Last occurrence of "Three Three Three" - index 7
+		stringList.add(8, "One"); 
+		assertEquals(7, stringList.lastIndexOf("Three Three Three"));
+		assertEquals(6, stringList.lastIndexOf("Two Two"));
+	}
+	
+	@Test
+	public void lastIndexOf_Mix(){
+		doublyLinkedList.add(3);
+		doublyLinkedList.add(10);
+		doublyLinkedList.add("hello");
+		doublyLinkedList.add(900);
+		doublyLinkedList.add("world");
+		doublyLinkedList.add(10);
+		doublyLinkedList.add("world");
+		doublyLinkedList.add("world"); // Last occurrence of "world" - index 7
+		doublyLinkedList.add(900); // Last occurrence of 900 - index 8
+		doublyLinkedList.add(100);
+		assertEquals(7, doublyLinkedList.lastIndexOf("world"));
+		assertEquals(8, doublyLinkedList.lastIndexOf(900));
+	}
 	
 	
 /**
@@ -456,9 +541,16 @@ public class DoublyLinkedListTest {
 	
 	
 /**
- * Releases external resources that was done in the @before class
+ * Releases external resources that was done in the @before class after each Test.
  */
 	@After
 	public void tearDown() throws Exception {
+		doublyLinkedList = null;
+		alreadyDefinedMixedDoublyLinkedList = null; 
+		integerObject1 = null;
+		integerObject2 = null;
+		integerObject3 = null;
+		integerList = null;
+		stringList = null;
 	}
 }
