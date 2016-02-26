@@ -539,6 +539,23 @@ public class DoublyLinkedListTest {
 		assertTrue(doublyLinkedList.isEmpty()); 
 	}
 	
+///**
+// * Test DoublyLinkedList Iterator
+// */
+//	@Test
+//	public void iteratorTest(){
+//		DoublyLinkedList<Object> list = new DoublyLinkedList<>();
+//		for(int i = 0; i < 25; i++){
+//			list.add(i, i); // add int from 0 to 24 for a list of size 25.
+//		}
+//		for(Object obj : list){
+//			System.out.print(obj);
+//		}
+//		
+//		if(list.iterator().hasNext()){
+//			System.out.println(list.iterator().next());
+//		}		
+//	}
 	
 /**
  * Releases external resources that was done in the @before class after each Test.

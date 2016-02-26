@@ -148,7 +148,6 @@ public class DoublyLinkedList<E> implements List<E>, Iterable<E>
 			tail = newNode;
 		}
 		else{
-			assert index >= 1;
 			Node previousNode = getNodeAtIndex(index-1);
 			
 			newNode.next = previousNode.next;
